@@ -76,10 +76,10 @@ int main() {
 	ljl::Function <int> myFunction;
 
         // Code:
-        // movq   rax, 0xbeef
+        // movq   rax, 0xdeadbeef
         
 	myFunction.append( {
-		0x48, 0xb8
+		0x48, 0xc7, 0xc0,
 	} );
 
 	myFunction.append((ljl::u32)0xdeadbeef);
