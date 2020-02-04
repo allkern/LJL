@@ -2,7 +2,7 @@
 
 
 # LJL (Lycoder's Jit Library)
-LJL is a simple x86-64 JIT function generation library written in C++ that is compatible with STL containters, `std::thread`, etc.
+LJL is a simple x86-64 JIT function generation library written in C++17 that is compatible with STL containters, `std::thread`, etc.
 
 Check the wiki for tutorials, and further information about LJL!
 
