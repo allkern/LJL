@@ -9,10 +9,10 @@ Check the wiki for tutorials, and further information about LJL!
 
 ## Simple example (Windows)
 ```c++
-#include "LJL\ljl.h"
+#include <iostream>
+#include <array>
 
-#include <iostream> // std::cout, std::endl;
-#include <array> // std::array<T, S>
+#include "LJL\ljl.h"
 
 int main() {
 	// Create a function with return type <void>
