@@ -3,7 +3,7 @@
 // Version defines
 #define LJL_MAJOR "0"
 #define LJL_MINOR "1"
-#define LJL_REL "r1"
+#define LJL_REL "r2"
 
 // Namespace begin and end markers
 #define LJL_BEGIN namespace ljl {

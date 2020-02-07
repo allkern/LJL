@@ -140,9 +140,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cc" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="LJL\Address.h" />
     <ClInclude Include="LJL\Aliases.h" />
     <ClInclude Include="LJL\Builder.h" />

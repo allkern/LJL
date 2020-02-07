@@ -37,7 +37,7 @@ LJL_BEGIN
 
         // Initialize the function.
         LJL_VOID init() {
-            generateEpilog();
+            generateProlog();
         }
 
         // Append an std::initializer_list
@@ -47,13 +47,8 @@ LJL_BEGIN
 
         // Append a memory address
         template <class T> LJL_VOID append(ljl::Address<T> addr) {
-		    uint_least64_t a = addr.getLiteral(), m = 0;
-		    size_t t = 0;
-		    for (size_t b = 0; b < 8; b++) {
-			    t = b*8;
-			    m = ((uint_least64_t)0xff << t);
-			    push_back((a&m)>>t);
-		    }
+		    uint_least64_t a = addr.getLiteral();
+            append(a);
 	    }
 
         // Append a literal
@@ -69,7 +64,7 @@ LJL_BEGIN
 
         // Append a prolog, and make the function executable
         LJL_BOOL make() {
-            generateProlog();
+            generateEpilog();
         #ifdef WIN32
             DWORD old;
             IS_EXECUTABLE = (bool)VirtualProtect(
