@@ -1,5 +1,4 @@
-<div style="text-align:center"><img src="https://user-images.githubusercontent.com/15825466/73777526-62530400-4768-11ea-80b6-92d8a13ebff1.png" width="1900" height="154" alt="Photo of 3 cats"/></div>
-
+![LJL's banner](https://user-images.githubusercontent.com/15825466/73777526-62530400-4768-11ea-80b6-92d8a13ebff1.png)
 
 # LJL (Lycoder's Jit Library)
 LJL is a simple x86-64 JIT function generation library written in C++17 that is compatible with STL containters, `std::thread`, etc.
