@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClInclude Include="LJL\Address.h" />
     <ClInclude Include="LJL\Aliases.h" />
+    <ClInclude Include="LJL\BindTable.h" />
     <ClInclude Include="LJL\Builder.h" />
     <ClInclude Include="LJL\Function.h" />
     <ClInclude Include="LJL\Global.h" />

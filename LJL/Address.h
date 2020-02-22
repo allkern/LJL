@@ -9,6 +9,7 @@ LJL_BEGIN
 	template <class T> class Address {
 		// Pointer to an object
 		T* ptr;
+
 	public:
 		// Construct directly from an object (passed by reference)
 		Address(T& obj) : ptr(&obj) {}

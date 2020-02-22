@@ -33,5 +33,8 @@
     <ClInclude Include="LJL\ljl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LJL\BindTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
