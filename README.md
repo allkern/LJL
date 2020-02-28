@@ -14,41 +14,42 @@ Check the wiki for tutorials, and further information about LJL!
 #include "LJL\ljl.h"
 
 int main() {
-	// Create a function with return type <void>
+	// Create a function, and builder with return type <void>
 	ljl::Function <void> myFunction;
-
+	ljl::Builder myBuilder(myFunction);
+	
 	// Create an STL array
 	std::array <int, 10> myArray = { 0 };
 
 	// Create an address from a pointer to an array
 	ljl::Address myAddress(myArray.data());
-  
+  	
         // Code:
-        // movq   rax         , myAddress
+        // movabs rax         , myAddress
         // mov    rcx         , 0x1
         // mov    [rax+rcx*4] , 0xcafe
   
-	myFunction.append( {
+	myBuilder.append( {
 		0x48, 0xb8                    
 	} );
 
-	myFunction.append(myAddress);
+	myBuilder.append(myAddress);
 
-	myFunction.append( {
+	myBuilder.append( {
 		0x48, 0xc7, 0xc1
 	} );
 
-	myFunction.append((ljl::u32)0x1);
+	myBuilder.append((ljl::u32)0x1);
   
   
-	myFunction.append( {
+	myBuilder.append( {
 		0x48, 0xC7, 0x04, 0x88
 	} );
 
-	myFunction.append((ljl::u32)0xcafe);
+	myBuilder.append((ljl::u32)0xcafe);
 
 	// Append prolog and make the page executable
-	myFunction.make();
+	myBuilder.make();
 
 	// Call the generated function
 	myFunction();
