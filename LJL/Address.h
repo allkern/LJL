@@ -21,7 +21,7 @@ LJL_BEGIN
 		Address() = default;
 
 		// Cast to uint_least64_t
-		inline uint_least64_t getLiteral() { return (uint_least64_t)this->ptr; }
+		inline uint_least64_t get_literal() { return (uint_least64_t)this->ptr; }
 
 		// Same as constructors
 		inline void init(T& obj) { this->ptr = &obj; }

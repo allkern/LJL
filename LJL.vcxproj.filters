@@ -36,5 +36,11 @@
     <ClInclude Include="LJL\BindTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LJL\Promise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LJL\Runtime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

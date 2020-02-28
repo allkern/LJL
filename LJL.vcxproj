@@ -144,9 +144,11 @@
     <ClInclude Include="LJL\Aliases.h" />
     <ClInclude Include="LJL\BindTable.h" />
     <ClInclude Include="LJL\Builder.h" />
+    <ClInclude Include="LJL\Runtime.h" />
     <ClInclude Include="LJL\Function.h" />
     <ClInclude Include="LJL\Global.h" />
     <ClInclude Include="LJL\ljl.h" />
+    <ClInclude Include="LJL\Promise.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

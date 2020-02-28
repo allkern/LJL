@@ -2,7 +2,7 @@
 
 // Version defines
 #define LJL_MAJOR "0"
-#define LJL_MINOR "1"
+#define LJL_MINOR "2"
 #define LJL_REL "r2"
 
 // Namespace begin and end markers
@@ -16,7 +16,15 @@
 // Type aliases for commonly used types
 #define LJL_VOID void
 #define LJL_BOOL bool
+#define LJL_SIZE size_t
 
-// Architecture description defines (not yet implemented)
-#define LJL_ARCH_ORDER_SMALL_ENDIAN
-#define LJL_ARCH_X64
+// Architecture description defines (unimplemented)
+#ifdef LJL_X64
+	#define LJL_ARCH_X64
+	#define LJL_ARCH_ORDER_SMALL_ENDIAN
+#endif
+
+#ifdef LJL_X86
+	#define LJL_ARCH_X86
+	#define LJL_ARCH_ORDER_SMALL_ENDIAN
+#endif
