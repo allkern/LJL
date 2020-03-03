@@ -1,9 +1,20 @@
 ![LJL's banner](https://user-images.githubusercontent.com/15825466/73777526-62530400-4768-11ea-80b6-92d8a13ebff1.png)
 
-# LJL (Lycoder's Jit Library)
+# LJL (Lycoder's JIT Library)
 LJL is a simple x86-64 JIT function generation library written in C++17 that is compatible with STL containters, `std::thread`, etc.
-Mainly intended to be used on emulators, or as a learning tool, either of JIT code generation, or Assembly.
+As of now, mainly intended to be used on emulators, or as a learning tool, either of JIT code generation, or Assembly.
 Check the wiki for tutorials, and further information about LJL!
+
+## Short/medium term goals
+ - Create an "extensions" system that allows developers to choose whether some feature is included in a project or not, making performance-critical, or low-resource development easier (work being done in the development branch)
+ - Make debugging easier by creating assemblers, disassemblers, and a runtime (as extensions)
+
+## Long term goals
+ - Become **the** code generation library of choice in at least one of the following fields:
+   * Performance-critical/low-resource development
+   * JIT Compilers
+   * Emulators
+   * Teaching assembly/JIT code generation
 
 
 ## Simple example (Windows)
@@ -59,37 +70,6 @@ int main() {
 	for (int a : myArray) {
 		std::cout << "myArray[" << p++ << "] = " << std::hex << a << std::endl;
 	}
-	system("pause");
-	return 0;
-}
-```
-
-
-## Return example (Windows)
-```c++
-#include <iostream>
-
-#include "LJL\ljl.h"
-
-int main() {
-	// Create a function with return type <int>
-	ljl::Function <int> myFunction;
-
-        // Code:
-        // movq   rax, 0xdeadbeef
-        
-	myFunction.append( {
-		0x48, 0xc7, 0xc0,
-	} );
-
-	myFunction.append((ljl::u32)0xdeadbeef);
-
-	// Append prolog and make the page executable
-	myFunction.make();
-
-	// Print return value from the generated function
-	std::cout << std::hex << myFunction() << std::endl;
-
 	system("pause");
 	return 0;
 }
