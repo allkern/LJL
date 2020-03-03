@@ -30,11 +30,10 @@ LJL_BEGIN
             return IS_EXECUTABLE;
         }
 
+    size_t entry_offset = 0;
     template <class ReturnType> friend class Builder;
-
+    
     public:
-        size_t entry_offset = 0;
-
         // Default constructor
         Function() = default;
 

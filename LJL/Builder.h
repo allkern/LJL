@@ -106,10 +106,12 @@ public:
 
     LJL_VOID make() {
         generate_epilog();
-        auto generated_table = bind_table->generate();
-        f->insert(f->begin(), generated_table.begin(), generated_table.end());
-        link_binds();
-        f->entry_offset = bind_table->get_real_size();
+        if (bind_table != nullptr) {
+            auto generated_table = bind_table->generate();
+            f->insert(f->begin(), generated_table.begin(), generated_table.end());
+            f->entry_offset = bind_table->get_real_size();
+            link_binds();
+        }
         f->make();
     }
 };
