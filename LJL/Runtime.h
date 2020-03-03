@@ -7,7 +7,6 @@
 
 LJL_BEGIN
 
-
 class Runtime { // Unimplemented
 	virtual inline void __cdecl sigsegv() {
 		std::cout << "LJLRT error: SIGSEGV was raised.\n"

@@ -28,3 +28,14 @@
 	#define LJL_ARCH_X86
 	#define LJL_ARCH_ORDER_SMALL_ENDIAN
 #endif
+
+// (Experimental) LJL specification support/extensions
+#define LJL_SPEC_ADDRESSES
+#define LJL_SPEC_AUTO_EPILOG
+#define LJL_SPEC_AUTO_PROLOG
+#define LJL_SPEC_APPEND_INITL
+#define LJL_SPEC_APPEND_STRING
+#define LJL_SPEC_APPEND_ADDRESS
+#define LJL_SPEC_PROMISES
+#define LJL_SPEC_BINDS
+

@@ -1,5 +1,12 @@
 #pragma once
-#include <initializer_list>
+#ifdef LJL_SPEC_APPEND_INITL
+    #include <initializer_list>
+#endif
+
+#ifdef LJL_SPEC_APPEND_STRING
+    #include <string>
+#endif
+
 #include <iostream>
 #include <iomanip>
 #include <cstdint> // uint_least8_t
@@ -7,15 +14,27 @@
 #include "Global.h" // Global defines
 #include "Function.h"
 #include "Aliases.h"
+
+#ifdef LJL_SPEC_ADDRESSES
 #include "Address.h" // ljl::Address<T>
+#endif
+
+#ifdef LJL_SPEC_PROMISES
 #include "Promise.h"
+#endif
+
+#ifdef LJL_SPEC_BINDS
 #include "BindTable.h"
+#endif
 
 LJL_BEGIN
 
 template <class ReturnType> class Builder {
     Function <ReturnType>* f = nullptr;
+
+#ifdef LJL_SPEC_BINDS
     BindTable* bind_table = nullptr;
+#endif
 
     // __cdecl prologs and epilogs
     //#ifdef LJL_DECL_C
@@ -42,6 +61,7 @@ template <class ReturnType> class Builder {
 		}
 	}
 
+#ifdef LJL_SPEC_BINDS
     LJL_VOID link_binds() {
         auto bind_requests = bind_table->get_requests();
         size_t bind_table_size = bind_table->get_size(),
@@ -55,18 +75,31 @@ template <class ReturnType> class Builder {
     }
 
 public:
-    LJL_VOID change_bind_table(BindTable* bt_new) { bind_table = bt_new; }
-    
+    LJL_VOID switch_bind_table(BindTable* bt_new) { bind_table = bt_new; }
+
+    LJL_VOID link(std::string symbol = "<unknown>") {
+        bind_table->request(BindRequest(symbol, get_expected_rip()));
+        append((u32)0);
+    }
+#endif
+
+public:
+    // Get the expected value of RIP at the current state of the buffer
     LJL_SIZE get_expected_rip() { return f->size(); }
 
     // Initialize the function.
     LJL_VOID initialize() {
+#ifdef LJL_SPEC_AUTO_PROLOG
         generate_prolog();
+#endif
     }
 
     Builder() = default;
     Builder(Function <ReturnType>& f) : f(&f) { initialize(); }
+
+#ifdef LJL_SPEC_BINDS
     Builder(Function <ReturnType>& f, BindTable& b) : f(&f), bind_table(&b) { initialize(); }
+#endif
 
     // Append a literal
     template <class T> LJL_VOID append(T a) {
@@ -79,16 +112,31 @@ public:
 	}
 
     // Append an std::initializer_list
+#ifdef LJL_SPEC_APPEND_INITL
     LJL_VOID append(std::initializer_list <uint_least8_t> c) {
         f->insert(f->end(), c.begin(), c.end());
     }
+#endif
 
     // Append a memory address
+#ifdef LJL_SPEC_APPEND_ADDRESS
     template <class T> LJL_VOID append(Address<T> addr) {
 		ljl::u64 a = addr.get_literal();
         append(a);
 	}
+#endif
 
+#ifdef LJL_SPEC_APPEND_STRING
+    LJL_VOID append(std::string c) {
+        size_t p;
+        while (c.size()) {
+            append((ljl::u8)std::stoul("0x"+c[0]+c[1], nullptr));
+            p += 2; c.substr(p);
+        }
+    }
+#endif
+
+#ifdef LJL_SPEC_PROMISES
     template <class T> Promise<T> promise() {
         Promise<T> p(get_expected_rip());
         append((T)0);
@@ -98,20 +146,20 @@ public:
     template <class T> LJL_VOID fulfill(Promise<T>& p, T value) {
         overwrite(p.source_offset, value);
     }
-
-    LJL_VOID link(std::string symbol = "<unknown>") {
-        bind_table->request(BindRequest(symbol, get_expected_rip()));
-        append((u32)0);
-    }
+#endif
 
     LJL_VOID make() {
+#ifdef LJL_SPEC_AUTO_EPILOG
         generate_epilog();
+#endif
+#ifdef LJL_SPEC_BINDS
         if (bind_table != nullptr) {
             auto generated_table = bind_table->generate();
             f->insert(f->begin(), generated_table.begin(), generated_table.end());
             f->entry_offset = bind_table->get_real_size();
             link_binds();
         }
+#endif
         f->make();
     }
 };
