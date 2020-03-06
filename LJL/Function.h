@@ -12,9 +12,9 @@
 
 LJL_BEGIN
 
-    // ljl::Function<T>:
+    // ljl::Function<T, Args...>:
     // A code buffer, manageable through ljl::Builder.
-    template <class ReturnType> class Function : public std::vector <uint_least8_t> {
+    template <class ReturnType, class... Args> class Function : public std::vector <ljl::u8> {
         // This bool will be asserted on calls. It assures the object is executable before calling
         bool IS_EXECUTABLE = false;
 
@@ -31,7 +31,7 @@ LJL_BEGIN
         }
 
     size_t entry_offset = 0;
-    template <class ReturnType> friend class Builder;
+    template <class ReturnType, class... Args> friend class Builder;
     
     public:
         // Default constructor
@@ -43,9 +43,9 @@ LJL_BEGIN
             // Check if function returns or is void
             auto funcPtr = &data()[entry_offset];
             if constexpr (std::is_same <ReturnType, void>::value == true) {
-                ((ReturnType( LJL_DECL *)(void))funcPtr)();
+                ((ReturnType( LJL_DECL *)(void))funcPtr)(Args... args);
             } else {
-                return ((ReturnType( LJL_DECL *)(void))funcPtr)();
+                return ((ReturnType( LJL_DECL *)(void))funcPtr)(Args... args);
             }
         }
     };

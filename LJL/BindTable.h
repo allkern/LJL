@@ -79,7 +79,7 @@ class BindTable {
 	}
 
 	// Allows ljl::Function<T> to build bind tables
-	template <class T> friend class Builder;
+	template <class ReturnType, class... Args> friend class Builder;
 
 public:
 	// Request a binding

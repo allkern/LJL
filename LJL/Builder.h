@@ -29,8 +29,8 @@
 
 LJL_BEGIN
 
-template <class ReturnType> class Builder {
-    Function <ReturnType>* f = nullptr;
+template <class ReturnType, class... Args> class Builder {
+    Function <ReturnType, Args...>* f = nullptr;
 
 #ifdef LJL_SPEC_BINDS
     BindTable* bind_table = nullptr;
@@ -95,10 +95,10 @@ public:
     }
 
     Builder() = default;
-    Builder(Function <ReturnType>& f) : f(&f) { initialize(); }
+    Builder(Function <ReturnType(Args...)>& f) : f(&f) { initialize(); }
 
 #ifdef LJL_SPEC_BINDS
-    Builder(Function <ReturnType>& f, BindTable& b) : f(&f), bind_table(&b) { initialize(); }
+    Builder(Function <ReturnType(Args...)>& f, BindTable& b) : f(&f), bind_table(&b) { initialize(); }
 #endif
 
     // Append a literal
